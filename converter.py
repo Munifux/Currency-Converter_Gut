@@ -1,4 +1,5 @@
 import tkinter as tk
+import random
 
 rates = {
     "EUR": 1.0,
@@ -7,13 +8,19 @@ rates = {
     "SEK": 11.2
 }
 
+def get_luck_multiplier():
+    return round(random.uniform(0.8, 1.2), 2)
+
 def convert():
     try:
         amount = float(entry.get())
-        result = amount * rates[var.get()]
+        luck_multiplier = get_luck_multiplier()
+        result = amount * rates[var.get()] * luck_multiplier
         result_label.config(text=f"Result: {result:.2f}")
+        luck_label.config(text=f"Glücksmultiplikator: {luck_multiplier}x")
     except ValueError:
         result_label.config(text="Please enter a number")
+        luck_label.config(text="")
 
 root = tk.Tk()
 root.title("Currency Converter")
@@ -60,5 +67,9 @@ tk.Button(
 # Result
 result_label = tk.Label(root, text="Result:", font=label_font)
 result_label.pack(pady=10)
+
+# Luck Multiplier
+luck_label = tk.Label(root, text="", font=label_font, fg="green")
+luck_label.pack(pady=5)
 
 root.mainloop()
