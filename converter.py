@@ -8,7 +8,7 @@ rates = {
 }
 
 
-"test"
+"testung"
 def convert():
     try:
         amount = float(entry.get())
